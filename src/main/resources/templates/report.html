@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<!--<head th:fragment="site-head">-->
+<head>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" type="text/css"
+          href="webjars/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <link rel="stylesheet" th:href="@{/css/main.css}"
+          href="../../css/main.css"/>
+    <link rel="icon" href="../static/img/favicon.png" th:href="@{/img/favicon.png}"/>
+    <script type="text/javascript" src="//wow.zamimg.com/widgets/power.js"></script>
+    <script>var wowhead_tooltips = { "colorlinks": true, "iconizelinks": true, "renamelinks": true }</script>
+    <!--<script src="../public/js/jquery-3.1.0.min.js" th:src="@{/js/jquery-3.1.0.min.js}"></script>-->
+    <!--<script src="../public/js/blog-scripts.js" th:src="@{/js/blog-scripts.js}"></script>-->
+    <!--<meta th:include="this :: head" th:remove="tag"/>-->
+</head>
+<body>
+
+<!--<header th:replace="layout :: site-header"/>-->
+
+<h1>Report</h1>
+
+<!--<table>-->
+<!--<tr>-->
+<a th:href="@{${report.armorSet.headWowheadUrl}}">YEE</a>
+<a th:href="@{${report.armorSet.neckWowheadUrl}}">YEE</a>
+<!--<td th:text="${report.armorSet.head.name}"><a href="#" rel="item=${report.armorSet.head.wowId}">hai</a></td>-->
+<!--</tr>-->
+<!--</table>-->
+<!--<footer th:replace="layout :: site-footer"/>-->
+</body>
+</html>
