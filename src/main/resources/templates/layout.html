@@ -1,21 +1,50 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:fragment=“site-head”>
-    <meta charset=“UTF-8”/>
-    <link rel="stylesheet" type="text/css"
-          href="webjars/bootstrap/3.3.7/css/bootstrap.min.css"/>
+<head th:fragment="site-head">
+    <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+    <meta name="title" content="*Prawn*"/>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
+          integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous"/>
+    <!-- <link rel="stylesheet" href="resources/css/bootstrap-theme.min.css" type="text/css"/> -->
+    <!--<link rel="stylesheet" href="resources/css/bootstrap.min.css" type="text/css"/>-->
+    <!-- <script src="resources/js/bootstrap.min.js"/> -->
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"
+            integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"
+            integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
+            crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"
+            integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="resources/css/style.css" type="text/css"/>
+    <script type="text/javascript" src="http://wow.zamimg.com/widgets/power.js"></script>
+    <script>var wowhead_tooltips = { "colorlinks": true, "iconizelinks": true, "renamelinks": true }</script>
     <link rel="stylesheet" th:href="@{/css/main.css}"
           href="../../css/main.css"/>
-    <link rel=“icon” href=“../static/img/favicon.png” th:href=“@{/img/favicon.png}”/>
-    <script type="text/javascript" src="//wow.zamimg.com/widgets/power.js"></script>
-    <script>var wowhead_tooltips = { "colorlinks": true, "iconizelinks": true, "renamelinks": true }</script>
-    <!--<script src=“../public/js/jquery-3.1.0.min.js” th:src=“@{/js/jquery-3.1.0.min.js}”></script>-->
-    <!--<script src=“../public/js/blog-scripts.js” th:src=“@{/js/blog-scripts.js}”></script>-->
-    <meta th:include=“this :: head” th:remove=“tag”/>
+    <link rel="stylesheet" th:href="@{/css/wow.css}"
+          href="../../css/wow.css"/>
+    <link rel="icon" href="../static/img/favicon.png" th:href="@{/img/favicon.png}"/>
+    <meta th:include="this :: head" th:remove="tag"/>
+
 </head>
 <body>
-<header th:fragment=“site-header”>
-    <!--<a href=“index.html” th:href=“@{/}”><img src="../public/img/site-logo.png" th:src="@{/img/site-logo.png}"/></a>-->
+<div class="container container-prawn">
+    <div th:fragment="site-header">
+        <header id="header">
+            <div class="logo-header">
+                <a href="#"></a>
+            </div>
+            <nav id="nav">
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/faq">Help</a></li>
+                </ul>
+            </nav>
+        </header>
+    </div>
+    <!--<a href="index.html" th:href="@{/}"><img src="../public/img/site-logo.png" th:src="@{/img/site-logo.png}"/></a>-->
     <!--<a href="index.html" th:href="@{/}">Home</a>-->
     <!--<a href="users/login.html" th:href="@{/users/login}">Login</a>-->
     <!--<a href="users/register.html" th:href="@{/users/register}">Register</a>-->
@@ -23,15 +52,14 @@
     <!--<a href="posts/create.html" th:href="@{/posts/create}">Create Post</a>-->
     <!--<a href="users/index.html" th:href="@{/users}">Users</a>-->
     <!--<div id="logged-in-info"><span>Hello, <b>(user)</b></span>-->
-        <!--<form method="post" th:action="@{/users/logout}">-->
-            <!--<input type="submit" value="Logout"/>-->
-        <!--</form>-->
+    <!--<form method="post" th:action="@{/users/logout}">-->
+    <!--<input type="submit" value="Logout"/>-->
+    <!--</form>-->
     <!--</div>-->
-</header>
-<h1>Welcome</h1>
-<p>Welcome to the Spring MVC Blog.</p>
-<footer th:fragment="site-footer">
-    &copy; Spring MVC Blog System, 2016
-</footer>
+    <footer id="footer" th:fragment="site-footer">
+        Oui michel c'est moi
+    </footer>
+    <div style="clear:both"></div>
+</div>
 </body>
 </html>

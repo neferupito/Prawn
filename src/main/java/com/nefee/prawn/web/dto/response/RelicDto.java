@@ -7,7 +7,7 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ArmorItemDto {
+public class RelicDto {
 
     private String wowheadUrl;
     private String name;

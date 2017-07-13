@@ -79,9 +79,9 @@ public class DatabaseService {
                         .relic1(wowSpecEnum.getRelic1())
                         .relic2(wowSpecEnum.getRelic2())
                         .relic3(wowSpecEnum.getRelic3())
+                        .cssClass(wowSpecEnum.name().toLowerCase().replace("_", "-"))
                         .build());
             }
-
         }
     }
 
@@ -100,39 +100,48 @@ public class DatabaseService {
 
         goroth = bossBuilder
                 .name("Goroth")
+                .wowId(115844L)
                 .build();
 
         inquisition = bossBuilder
                 .name("Demonic Inquisition")
+                .wowId(120996L)
                 .build();
 
         harjatan = bossBuilder
                 .name("Harjatan")
+                .wowId(116407L)
                 .build();
 
         sasszine = bossBuilder
                 .name("Mistress Sassz'ine")
+                .wowId(115767L)
                 .build();
 
         moonSisters = bossBuilder
                 .name("Sisters of the Moon")
+                .wowId(118523L)
                 .build();
 
         host = bossBuilder
                 .name("The Desolate Host")
+                .wowId(118460L)
                 .build();
 
         maiden = bossBuilder
                 .name("Maiden of Vigilance")
+                .wowId(118289L)
                 .build();
 
         avatar = bossBuilder
                 .name("Fallen Avatar")
+                .wowId(120436L)
                 .build();
 
         kiljaeden = bossBuilder
                 .name("Kil'jaeden")
                 .lootBonusId("3563:1522")
+                .wowId(117269L)
                 .build();
 
         bossRepository.save(Arrays.asList(goroth, inquisition, harjatan, sasszine, moonSisters, host, maiden, avatar, kiljaeden));

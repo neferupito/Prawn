@@ -25,7 +25,7 @@ public class Report extends PrawnEntity {
 
     private String pawnstring;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.REMOVE)
     private ArmorSet armorSet;
 
 }

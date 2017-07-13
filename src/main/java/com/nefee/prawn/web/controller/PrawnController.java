@@ -48,6 +48,7 @@ public class PrawnController {
         }
         model.addAttribute("loginForm", new BiSRequest());
         model.addAttribute("wowSpecs", wowSpecRepository.findAll());
+        model.addAttribute("color", "pink");
         return "index";
     }
 
@@ -65,6 +66,11 @@ public class PrawnController {
         String reportId = bestGearService.findBestGear(request);
         System.err.println(reportId);
         return "redirect:/report/" + reportId;
+    }
+
+    @RequestMapping("/faq")
+    public String faq() {
+        return "faq";
     }
 
 

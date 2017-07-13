@@ -1,9 +1,8 @@
 package com.nefee.prawn.logic.service;
 
-import com.nefee.prawn.data.dao.ArmorItemRepository;
-import com.nefee.prawn.data.dao.ArmorSetRepository;
-import com.nefee.prawn.data.dao.RelicRepository;
-import com.nefee.prawn.data.dao.ReportRepository;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.nefee.prawn.data.dao.*;
 import com.nefee.prawn.data.entity.*;
 import com.nefee.prawn.data.model.ArmorType;
 import com.nefee.prawn.data.model.RelicType;
@@ -13,8 +12,7 @@ import com.nefee.prawn.web.dto.request.WishRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 public class BestGearService {
@@ -27,16 +25,25 @@ public class BestGearService {
     private RelicRepository relicDao;
     @Autowired
     private ArmorSetRepository armorSetRepository;
+    @Autowired
+    private ScoredArmorItemRepository scoredArmorItemRepository;
+    @Autowired
+    private DetailedReportRepository detailedReportRepository;
+    @Autowired
+    private DetailedArmorSetRepository detailedArmorSetRepository;
 
     private WishRequest request;
+    private Gson gson;
+
+    private List<DetailedArmorSet> detailedArmorSets;
 
     public String findBestGear(WishRequest request) {
-        this.request = request;
 
-        System.err.println(request.toString());
+        gson = new GsonBuilder().setPrettyPrinting().create();
+        this.request = request;
+        detailedArmorSets = new ArrayList<>();
+
         WowClass wowClass = request.getWowSpec().getWowClass();
-        System.err.println(wowClass.getName());
-        System.err.println(wowClass.getArmorType());
         ArmorType armorType = wowClass.getArmorType();
 
         ArmorSet bis = ArmorSet.builder()
@@ -55,11 +62,11 @@ public class BestGearService {
                 .relics3(findRelicsForType(request.getWowSpec().getRelic3()))
                 .build();
 
-//        http://www.wowhead.com/item=147063/armet-of-the-rotten-mind&bonus=3562:1497&spec=250
-        bis.setHeadWowheadUrl("http://www.wowhead.com/item=" + bis.getHead().getWowId() + "/bonus=" + bis.getHead().getBoss().getLootBonusId() + "&spec=" + request.getWowSpec().getWowId());
-        bis.setNeckWowheadUrl("http://www.wowhead.com/item=" + bis.getNeck().getWowId() + "/bonus=" + bis.getNeck().getBoss().getLootBonusId() + "&spec=" + request.getWowSpec().getWowId());
-
-        System.out.println(bis.toString());
+        ArmorItem[] rings = findBestRings();
+        if (rings != null) {
+            bis.setRing1(rings[0]);
+            bis.setRing2(rings[1]);
+        }
 
         bis = armorSetRepository.save(bis);
 
@@ -73,21 +80,84 @@ public class BestGearService {
                 .pawnstring(request.getPawnString().getOriginalPawnString())
                 .build());
 
+        DetailedReport detailedReport = detailedReportRepository.save(DetailedReport.builder()
+                .detailedArmorSets(detailedArmorSets)
+                .reportId(reportId)
+                .build());
+        System.out.println("\n\n" + gson.toJson(detailedReport) + "\n\n");
+
         return reportId;
     }
 
     private ArmorItem findBestItem(ArmorType armorType, Slot slot) {
+
         List<ArmorItem> armorItemEntities = armorItemRepository.findBySlot(slot);
+        List<ScoredArmorItem> scoredArmorItems = new ArrayList<>(armorItemEntities.size());
+
         if (!armorItemEntities.isEmpty()) {
             ArmorItem bis = null;
             double bestScore = 0.0;
+            for (ArmorItem item : armorItemEntities) {
+                if (item.getArmorType().equals(armorType)) {
 
+                    double score = calculateScore(request.getPawnString(), item);
+                    if (score > bestScore) {
+                        bestScore = score;
+                        bis = item;
+                    }
+
+                    ScoredArmorItem scoredArmorItem = scoredArmorItemRepository.save(ScoredArmorItem.builder().score(score).armorItem(item).build());
+                    scoredArmorItems.add(scoredArmorItem);
+                }
+            }
+
+            detailedArmorSets.add(detailedArmorSetRepository.save(
+                    DetailedArmorSet.builder()
+                            .slot(slot)
+                            .scoredArmorItems(scoredArmorItems)
+                            .build()));
+
+            return bis;
+
+        } else {
+            return null;
+        }
+    }
+
+    private ArmorItem[] findBestRings() {
+
+        List<ArmorItem> armorItemEntities = armorItemRepository.findBySlot(Slot.RING);
+        List<ScoredArmorItem> scoredArmorItems = new ArrayList<>(armorItemEntities.size());
+
+        if (!armorItemEntities.isEmpty()) {
+            ArmorItem[] bis = new ArmorItem[2];
+            double bestScore = 0.0;
+
+            Map<ArmorItem, Double> armorItemEntities2 = new HashMap<>(armorItemEntities.size() - 1);
             for (ArmorItem item : armorItemEntities) {
                 double score = calculateScore(request.getPawnString(), item);
                 if (score > bestScore) {
-                    bis = item;
+                    bestScore = score;
+                    bis[0] = item;
+                } else {
+                    armorItemEntities2.put(item, score);
+                }
+                ScoredArmorItem scoredArmorItem = scoredArmorItemRepository.save(ScoredArmorItem.builder().score(score).armorItem(item).build());
+                scoredArmorItems.add(scoredArmorItem);
+            }
+
+            for (Map.Entry<ArmorItem, Double> entry : armorItemEntities2.entrySet()) {
+                if (entry.getValue() > bestScore) {
+                    bestScore = entry.getValue();
+                    bis[2] = entry.getKey();
                 }
             }
+
+            detailedArmorSets.add(detailedArmorSetRepository.save(
+                    DetailedArmorSet.builder()
+                            .slot(Slot.RING)
+                            .scoredArmorItems(scoredArmorItems)
+                            .build()));
 
             return bis;
 
@@ -111,13 +181,12 @@ public class BestGearService {
         score = score + item.getMastery().doubleValue() * pawnString.getMastery();
         score = score + item.getVersatility().doubleValue() * pawnString.getVersatility();
 
-        System.err.println(item.getName() + "got score " + score);
-
         return score;
     }
 
     private List<Relic> findRelicsForType(RelicType type) {
         return relicDao.findByRelicType(type);
     }
+
 
 }

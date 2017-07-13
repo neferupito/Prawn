@@ -1,32 +1,28 @@
 package com.nefee.prawn.data.entity;
 
-import com.nefee.prawn.data.model.RelicType;
+import com.nefee.prawn.data.model.Slot;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@ToString
 @Entity
-public class Relic extends PrawnEntity {
+public class DetailedArmorSet extends PrawnEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private Long wowId;
-
-    private String name;
-
-    @ManyToOne
-    private Boss boss;
-
-    private String relicWowheadUrl;
-
     @Enumerated(EnumType.STRING)
-    private RelicType relicType;
+    private Slot slot;
+
+    @OneToMany(cascade = CascadeType.REMOVE)
+    private List<ScoredArmorItem> scoredArmorItems;
 
 }

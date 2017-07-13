@@ -30,8 +30,8 @@ public enum WowSpecEnum {
     MAGE_FROST(WowClassEnum.MAGE, "Frost", "Givre", "64", RelicType.FROST, RelicType.ARCANE, RelicType.FROST),
 
     MONK_BREWMASTER(WowClassEnum.MONK, "Brewmaster", "Maître Brasseur", "268", RelicType.LIFE, RelicType.STORM, RelicType.IRON),
-    MONK_MISTWEAVER(WowClassEnum.MONK, "Mistweaver", "Tisse-Brume", "270", RelicType.FROST, RelicType.LIFE, RelicType.STORM),
     MONK_WINDWALKER(WowClassEnum.MONK, "Windwalker", "Marche-Vent", "269", RelicType.STORM, RelicType.IRON, RelicType.STORM),
+    MONK_MISTWEAVER(WowClassEnum.MONK, "Mistweaver", "Tisse-Brume", "270", RelicType.FROST, RelicType.LIFE, RelicType.STORM),
 
     PALADIN_HOLY(WowClassEnum.PALADIN, "Holy", "Sacré", "65", RelicType.HOLY, RelicType.LIFE, RelicType.HOLY),
     PALADIN_PROTECTION(WowClassEnum.PALADIN, "Protection", "Protection", "66", RelicType.HOLY, RelicType.IRON, RelicType.ARCANE),
@@ -42,8 +42,8 @@ public enum WowSpecEnum {
     PRIEST_SHADOW(WowClassEnum.PRIEST, "Shadow", "Ombre", "258", RelicType.SHADOW, RelicType.BLOOD, RelicType.SHADOW),
 
     ROGUE_ASSASSINATION(WowClassEnum.ROGUE, "Assassination", "Assassinat", "259", RelicType.SHADOW, RelicType.IRON, RelicType.BLOOD),
-    ROGUE_OUTLAW(WowClassEnum.ROGUE, "Outlaw", "Hors la Loi", "261", RelicType.BLOOD, RelicType.IRON, RelicType.STORM),
     ROGUE_SUBTLETY(WowClassEnum.ROGUE, "Subtlety", "Finesse", "260", RelicType.FEL, RelicType.SHADOW, RelicType.FEL),
+    ROGUE_OUTLAW(WowClassEnum.ROGUE, "Outlaw", "Hors la Loi", "261", RelicType.BLOOD, RelicType.IRON, RelicType.STORM),
 
     SHAMAN_ELEMENTAL(WowClassEnum.SHAMAN, "Elemental", "Elementaire", "262", RelicType.STORM, RelicType.FROST, RelicType.STORM),
     SHAMAN_ENHANCEMENT(WowClassEnum.SHAMAN, "Enhancement", "Amélioration", "263", RelicType.FIRE, RelicType.IRON, RelicType.STORM),

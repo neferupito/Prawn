@@ -1,5 +1,6 @@
 package com.nefee.prawn.data.entity;
 
+
 import lombok.*;
 
 import javax.persistence.*;
@@ -9,20 +10,16 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@ToString
 @Entity
-public class Boss extends PrawnEntity {
+public class ScoredArmorItem extends PrawnEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private String name;
-
-    private String lootBonusId;
-
-    private Long wowId;
-
     @ManyToOne
-    private Raid raid;
+    private ArmorItem armorItem;
+    private Double score;
 
 }

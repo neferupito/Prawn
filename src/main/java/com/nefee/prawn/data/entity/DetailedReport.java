@@ -3,26 +3,24 @@ package com.nefee.prawn.data.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@ToString
 @Entity
-public class Boss extends PrawnEntity {
+public class DetailedReport extends PrawnEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private String name;
+    private String reportId;
 
-    private String lootBonusId;
-
-    private Long wowId;
-
-    @ManyToOne
-    private Raid raid;
+    @OneToMany(cascade = CascadeType.REMOVE)
+    private List<DetailedArmorSet> detailedArmorSets;
 
 }

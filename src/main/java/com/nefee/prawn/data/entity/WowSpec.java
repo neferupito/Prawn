@@ -33,4 +33,6 @@ public class WowSpec extends PrawnEntity {
     @Enumerated(EnumType.STRING)
     private RelicType relic3;
 
+    private String cssClass;
+
 }

@@ -19,10 +19,8 @@ public class ArmorSet extends PrawnEntity {
     private Long id;
     @ManyToOne
     private ArmorItem head;
-    private String headWowheadUrl;
     @ManyToOne
     private ArmorItem neck;
-    private String neckWowheadUrl;
     @ManyToOne
     private ArmorItem shoulders;
     @ManyToOne
@@ -39,6 +37,10 @@ public class ArmorSet extends PrawnEntity {
     private ArmorItem legs;
     @ManyToOne
     private ArmorItem feet;
+    @ManyToOne
+    private ArmorItem ring1;
+    @ManyToOne
+    private ArmorItem ring2;
 
     @OneToMany
     private List<Relic> relics1;

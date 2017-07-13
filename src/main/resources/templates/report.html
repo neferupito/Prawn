@@ -1,33 +1,115 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<!--<head th:fragment="site-head">-->
-<head>
-    <meta charset="UTF-8"/>
-    <link rel="stylesheet" type="text/css"
-          href="webjars/bootstrap/3.3.7/css/bootstrap.min.css"/>
-    <link rel="stylesheet" th:href="@{/css/main.css}"
-          href="../../css/main.css"/>
-    <link rel="icon" href="../static/img/favicon.png" th:href="@{/img/favicon.png}"/>
-    <script type="text/javascript" src="//wow.zamimg.com/widgets/power.js"></script>
-    <script>var wowhead_tooltips = { "colorlinks": true, "iconizelinks": true, "renamelinks": true }</script>
-    <!--<script src="../public/js/jquery-3.1.0.min.js" th:src="@{/js/jquery-3.1.0.min.js}"></script>-->
-    <!--<script src="../public/js/blog-scripts.js" th:src="@{/js/blog-scripts.js}"></script>-->
-    <!--<meta th:include="this :: head" th:remove="tag"/>-->
-</head>
+<head th:replace="layout :: site-head"></head>
 <body>
+<div class="container container-prawn">
+    <div th:replace="layout :: site-header"></div>
 
-<!--<header th:replace="layout :: site-header"/>-->
+    <div class="content">
+        <div id="content-header">
+            <h1>Report</h1>
+            <p>ancd</p>
+        </div>
+        <!--<table>-->
+        <!--<tr>-->
+        <div class="report">
+            <h1 th:text="${report.title}"></h1>
+            <h2>Summary</h2>
 
-<h1>Report</h1>
 
-<!--<table>-->
-<!--<tr>-->
-<a th:href="@{${report.armorSet.headWowheadUrl}}">YEE</a>
-<a th:href="@{${report.armorSet.neckWowheadUrl}}">YEE</a>
-<!--<td th:text="${report.armorSet.head.name}"><a href="#" rel="item=${report.armorSet.head.wowId}">hai</a></td>-->
-<!--</tr>-->
-<!--</table>-->
-<!--<footer th:replace="layout :: site-footer"/>-->
+            <table class="report-table">
+                <tr>
+                    <th>Slot</th>
+                    <th>Item</th>
+                    <th>Boss</th>
+                </tr>
+                <tr>
+                    <td>Head</td>
+                    <td class="textbold"><a th:href="@{${report.head.wowheadUrl}}">Loading...</a></td>
+                    <td><a th:href="@{${report.head.bossWowheadUrl}}" th:text="${report.head.name}">Loading...</a></td>
+                </tr>
+                <tr>
+                    <td>Neck</td>
+                    <td class="textbold"><a th:href="@{${report.neck.wowheadUrl}}">Loading...</a></td>
+                    <td><a th:href="@{${report.neck.bossWowheadUrl}}">Loading...</a></td>
+                </tr>
+                <tr>
+                    <td>Shoulders</td>
+                    <td class="textbold"><a th:href="@{${report.shoulders.wowheadUrl}}">Loading...</a></td>
+                    <td><a th:href="@{${report.shoulders.bossWowheadUrl}}">Loading...</a></td>
+                </tr>
+                <tr>
+                    <td>Back</td>
+                    <td class="textbold"><a th:href="@{${report.back.wowheadUrl}}">Loading...</a></td>
+                    <td><a th:href="@{${report.back.bossWowheadUrl}}">Loading...</a></td>
+                </tr>
+                <!--<tr>-->
+                <!--<td>Chest</td>-->
+                <!--<td class="textbold"><a th:href="@{${report.chest.wowheadUrl}}">Loading...</a></td>-->
+                <!--<td><a th:href="@{${report.chest.bossWowheadUrl}}">Loading...</a></td>-->
+                <!--</tr>-->
+                <!--<tr>-->
+                <!--<td>Wrists</td>-->
+                <!--<td class="textbold"><a th:href="@{${report.wrists.wowheadUrl}}">Loading...</a></td>-->
+                <!--<td><a th:href="@{${report.wrists.bossWowheadUrl}}">Loading...</a></td>-->
+                <!--</tr>-->
+                <!--<tr>-->
+                <!--<td>Hands</td>-->
+                <!--<td class="textbold"><a th:href="@{${report.hands.wowheadUrl}}">Loading...</a></td>-->
+                <!--<td><a th:href="@{${report.hands.bossWowheadUrl}}">Loading...</a></td>-->
+                <!--</tr>-->
+                <!--<tr>-->
+                <!--<td>Waist</td>-->
+                <!--<td class="textbold"><a th:href="@{${report.waist.wowheadUrl}}">Loading...</a></td>-->
+                <!--<td><a th:href="@{${report.waist.bossWowheadUrl}}">Loading...</a></td>-->
+                <!--</tr>-->
+                <!--<tr>-->
+                <!--<td>Legs</td>-->
+                <!--<td class="textbold"><a th:href="@{${report.legs.wowheadUrl}}">Loading...</a></td>-->
+                <!--<td><a th:href="@{${report.legs.bossWowheadUrl}}">Loading...</a></td>-->
+                <!--</tr>-->
+                <!--<tr>-->
+                <!--<td>Feet</td>-->
+                <!--<td class="textbold"><a th:href="@{${report.feet.wowheadUrl}}">Loading...</a></td>-->
+                <!--<td><a th:href="@{${report.feet.bossWowheadUrl}}">Loading...</a></td>-->
+                <!--</tr>-->
+            </table>
+
+            <h2>Relics</h2>
+
+            <table class="report-table">
+                <tr>
+                    <th>Relic</th>
+                    <th>Boss</th>
+                </tr>
+                <tr>
+                    <td colspan="2" th:text="${report.relicType1}" class="relictype">Relic type 1</td>
+                </tr>
+                <tr th:each="relic : ${report.relics1}">
+                    <td class="textbold"><a th:href="@{${relic.wowheadUrl}}">Loading...</a></td>
+                    <td><a th:href="@{${relic.bossWowheadUrl}}">Loading...</a></td>
+                </tr>
+                <tr>
+                    <td colspan="2" th:text="${report.relicType2}" class="relictype">Relic type 2</td>
+                </tr>
+                <tr th:each="relic : ${report.relics2}">
+                    <td class="textbold"><a th:href="@{${relic.wowheadUrl}}">Loading...</a></td>
+                    <td><a th:href="@{${relic.bossWowheadUrl}}">Loading...</a></td>
+                </tr>
+                <tr>
+                    <td colspan="2" th:text="${report.relicType3}" class="relictype">Relic type 3</td>
+                </tr>
+                <tr th:each="relic : ${report.relics3}">
+                    <td class="textbold"><a th:href="@{${relic.wowheadUrl}}">Loading...</a></td>
+                    <td><a th:href="@{${relic.bossWowheadUrl}}">Loading...</a></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <footer th:replace="layout :: site-footer"></footer>
+    <div style="clear:both"></div>
+</div>
 </body>
 </html>
