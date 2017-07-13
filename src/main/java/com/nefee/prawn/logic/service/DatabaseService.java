@@ -60,6 +60,9 @@ public class DatabaseService {
 
         // BACKS
         armorItemRepository.save(addBacks());
+
+        // RINGS
+        armorItemRepository.save(addRings());
     }
 
     private void loadClasses() {
@@ -474,6 +477,75 @@ public class DatabaseService {
                 .intellect(1615)
                 .haste(408)
                 .criticalStrike(631)
+                .mastery(0)
+                .versatility(0)
+                .build());
+
+        return items;
+    }
+
+    private List<ArmorItem> addRings() {
+        ArmorItem.ArmorItemBuilder ArmorItemBuilder = ArmorItem.builder()
+                .slot(Slot.RING)
+                .armorType(ArmorType.ACCESSORY);
+        List<ArmorItem> items = new ArrayList<>();
+
+        items.add(ArmorItemBuilder
+                .wowId(147020L)
+                .name("Scaled Band of Servitude")
+                .boss(harjatan)
+                .armor(0)
+                .stamina(2422)
+                .agility(0)
+                .strength(0)
+                .intellect(0)
+                .haste(1509)
+                .criticalStrike(0)
+                .mastery(2011)
+                .versatility(0)
+                .build());
+
+        items.add(ArmorItemBuilder
+                .wowId(147021L)
+                .name("Yathae's Thumb Ring")
+                .boss(moonSisters)
+                .armor(0)
+                .stamina(2422)
+                .agility(0)
+                .strength(0)
+                .intellect(0)
+                .haste(0)
+                .criticalStrike(2414)
+                .mastery(0)
+                .versatility(1106)
+                .build());
+
+        items.add(ArmorItemBuilder
+                .wowId(147194L)
+                .name("Band of Rescinded Truths")
+                .boss(maiden)
+                .armor(0)
+                .stamina(2422)
+                .agility(0)
+                .strength(0)
+                .intellect(0)
+                .haste(0)
+                .criticalStrike(0)
+                .mastery(1307)
+                .versatility(2212)
+                .build());
+
+        items.add(ArmorItemBuilder
+                .wowId(147195L)
+                .name("Seal of the Second Duumvirate")
+                .boss(kiljaeden)
+                .armor(0)
+                .stamina(2422)
+                .agility(0)
+                .strength(0)
+                .intellect(0)
+                .haste(2030)
+                .criticalStrike(1709)
                 .mastery(0)
                 .versatility(0)
                 .build());

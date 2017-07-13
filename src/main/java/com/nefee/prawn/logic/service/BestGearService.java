@@ -72,7 +72,7 @@ public class BestGearService {
 
         String reportId = UUID.randomUUID().toString();
 
-        reportRepository.save(Report.builder()
+        Report report = reportRepository.save(Report.builder()
                 .reportId(reportId)
                 .title(request.getTitle())
                 .wowSpec(request.getWowSpec())
@@ -85,6 +85,8 @@ public class BestGearService {
                 .reportId(reportId)
                 .build());
         System.out.println("\n\n" + gson.toJson(detailedReport) + "\n\n");
+        System.out.println("\n\n" + gson.toJson(report) + "\n\n");
+
 
         return reportId;
     }
@@ -133,31 +135,38 @@ public class BestGearService {
             ArmorItem[] bis = new ArmorItem[2];
             double bestScore = 0.0;
 
-            Map<ArmorItem, Double> armorItemEntities2 = new HashMap<>(armorItemEntities.size() - 1);
+            Map<Double, ArmorItem> rings = new TreeMap<>();
+
             for (ArmorItem item : armorItemEntities) {
                 double score = calculateScore(request.getPawnString(), item);
-                if (score > bestScore) {
-                    bestScore = score;
-                    bis[0] = item;
-                } else {
-                    armorItemEntities2.put(item, score);
-                }
+                rings.put(score, item);
                 ScoredArmorItem scoredArmorItem = scoredArmorItemRepository.save(ScoredArmorItem.builder().score(score).armorItem(item).build());
                 scoredArmorItems.add(scoredArmorItem);
             }
 
-            for (Map.Entry<ArmorItem, Double> entry : armorItemEntities2.entrySet()) {
-                if (entry.getValue() > bestScore) {
-                    bestScore = entry.getValue();
-                    bis[2] = entry.getKey();
+            int i = rings.size();
+            System.out.println("=== Content of Rings ===");
+            for (Map.Entry<Double, ArmorItem> entry : rings.entrySet()) {
+                if (i == 2) {
+                    bis[1] = entry.getValue();
                 }
+                if (i == 1) {
+                    bis[0] = entry.getValue();
+                }
+                System.out.println(i-- + " " + entry.getKey() + " " + entry.getValue().getName());
             }
+            System.out.println("========================");
 
             detailedArmorSets.add(detailedArmorSetRepository.save(
                     DetailedArmorSet.builder()
                             .slot(Slot.RING)
                             .scoredArmorItems(scoredArmorItems)
                             .build()));
+
+            int y = 0;
+            for (ArmorItem item : bis) {
+                System.out.println(y++ + " " + item.getName());
+            }
 
             return bis;
 

@@ -42,11 +42,11 @@ public class ArmorSet extends PrawnEntity {
     @ManyToOne
     private ArmorItem ring2;
 
-    @OneToMany
+    @ManyToMany
     private List<Relic> relics1;
-    @OneToMany
+    @ManyToMany
     private List<Relic> relics2;
-    @OneToMany
+    @ManyToMany
     private List<Relic> relics3;
 
 }
