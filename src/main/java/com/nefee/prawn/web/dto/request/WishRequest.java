@@ -14,5 +14,7 @@ public class WishRequest {
     private String title;
     private WowSpec wowSpec;
     private PawnString pawnString;
+    private boolean is2PiecesRequired = false;
+    private boolean is4PiecesRequired = false;
 
 }

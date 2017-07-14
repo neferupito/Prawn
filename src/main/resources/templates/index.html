@@ -30,6 +30,15 @@
                         <!--th:class="${isAdmin}? adminclass : userclass"-->
                     </select>
                 </div>
+                <div>
+                    <label for="t20">Number of T20 required pieces :</label>
+                    <ul id="t20">
+                        <li th:each="number : ${t20}">
+                            <input type="radio" th:field="*{numberT20Pieces}" th:value="${number}"/>
+                        </li>
+                    </ul>
+                </div>
+
                 <div><input type="submit" value="Find my BiS !" class="submit"/></div>
             </fieldset>
         </form>

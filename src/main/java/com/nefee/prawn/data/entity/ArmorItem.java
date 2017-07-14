@@ -5,6 +5,7 @@ import com.nefee.prawn.data.model.Slot;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Getter
 @Setter
@@ -16,38 +17,56 @@ import javax.persistence.*;
 public class ArmorItem extends PrawnEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue (strategy = GenerationType.AUTO)
     private Long id;
 
+    @NotNull
     private Long wowId;
 
+    @NotNull
     private String name;
 
-    @Enumerated(EnumType.STRING)
+    @NotNull
+    @Enumerated (EnumType.STRING)
     private Slot slot;
 
-    @Enumerated(EnumType.STRING)
+    @NotNull
+    @Enumerated (EnumType.STRING)
     private ArmorType armorType;
 
+    @NotNull
     private Integer armor = 0;
 
+    @NotNull
     private Integer stamina = 0;
 
+    @NotNull
     private Integer intellect = 0;
 
+    @NotNull
     private Integer agility = 0;
 
+    @NotNull
     private Integer strength = 0;
 
+    @NotNull
     private Integer criticalStrike = 0;
 
+    @NotNull
     private Integer mastery = 0;
 
+    @NotNull
     private Integer versatility = 0;
 
+    @NotNull
     private Integer haste = 0;
 
+    @NotNull
     @ManyToOne
     private Boss boss;
 
+    private boolean isSetPart = false;
+
+    @ManyToOne
+    private ClassArmorSet classArmorSet = null;
 }

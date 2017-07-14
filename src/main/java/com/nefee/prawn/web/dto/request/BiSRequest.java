@@ -12,5 +12,6 @@ public class BiSRequest {
 
     private String pawnstring;
     private Integer wowSpecId;
+    private Integer numberT20Pieces;
 
 }

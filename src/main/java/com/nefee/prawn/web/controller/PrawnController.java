@@ -2,8 +2,8 @@ package com.nefee.prawn.web.controller;
 
 import com.nefee.prawn.data.dao.WowSpecRepository;
 import com.nefee.prawn.data.entity.WowSpec;
-import com.nefee.prawn.logic.service.BestGearService;
 import com.nefee.prawn.logic.service.DatabaseService;
+import com.nefee.prawn.logic.service.FindMyBestInSlotsService;
 import com.nefee.prawn.logic.service.TransformerService;
 import com.nefee.prawn.web.dto.request.BiSRequest;
 import com.nefee.prawn.web.dto.request.WishRequest;
@@ -16,13 +16,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.validation.Valid;
+import java.util.Arrays;
 import java.util.List;
 
 @Controller
 public class PrawnController {
 
     @Autowired
-    private BestGearService bestGearService;
+    private FindMyBestInSlotsService bestGearService;
     @Autowired
     private TransformerService transformerService;
     @Autowired
@@ -40,7 +41,7 @@ public class PrawnController {
 //    }
 
 
-    @RequestMapping("/")
+    @RequestMapping ("/")
     public String login(BiSRequest loginForm, Model model) {
         WowSpec test = wowSpecRepository.findByWowId(105);
         if (test == null) {
@@ -48,11 +49,11 @@ public class PrawnController {
         }
         model.addAttribute("loginForm", new BiSRequest());
         model.addAttribute("wowSpecs", wowSpecRepository.findAll());
-        model.addAttribute("color", "pink");
+        model.addAttribute("t20", Arrays.asList(0, 2, 4));
         return "index";
     }
 
-    @RequestMapping(value = "/submit", method = RequestMethod.POST)
+    @RequestMapping (value = "/submit", method = RequestMethod.POST)
     public String loginPage(@Valid BiSRequest loginForm, BindingResult bindingResult) {
 //        if (bindingResult.hasErrors()) {
 //            notifyService.addErrorMessage("Please fill the form correctly!");
@@ -63,12 +64,12 @@ public class PrawnController {
 
         WishRequest request = transformerService.transformRequest(loginForm);
         System.err.println(request.toString());
-        String reportId = bestGearService.findBestGear(request);
+        String reportId = bestGearService.findBestInSlots(request);
         System.err.println(reportId);
         return "redirect:/report/" + reportId;
     }
 
-    @RequestMapping("/faq")
+    @RequestMapping ("/faq")
     public String faq() {
         return "faq";
     }
@@ -87,7 +88,7 @@ public class PrawnController {
 //        return "redirect:/report/" + reportId;
 //    }
 
-    @ModelAttribute("wowSpecs")
+    @ModelAttribute ("wowSpecs")
     public List<WowSpec> getAllWowSpecs() {
         return (List<WowSpec>) wowSpecRepository.findAll();
     }

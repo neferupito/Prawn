@@ -1,9 +1,9 @@
 package com.nefee.prawn.data.entity;
 
-
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Getter
 @Setter
@@ -12,13 +12,16 @@ import javax.persistence.*;
 @Builder
 @ToString
 @Entity
-public class ScoredArmorItem extends PrawnEntity {
+public class ClassArmorSet extends PrawnEntity {
 
     @Id
     @GeneratedValue (strategy = GenerationType.AUTO)
     private Long id;
 
     @ManyToOne
-    private ArmorItem armorItem;
-    private Double score;
+    private WowClass wowClass;
+
+    @OneToMany (mappedBy = "classArmorSet")
+    private List<ArmorItem> armorItems;
+
 }
